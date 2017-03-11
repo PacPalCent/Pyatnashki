@@ -49,14 +49,23 @@ public class GameManager : MonoBehaviour {
 	
     public void ElementButton(int index)
     {
-        if (GOGameElement[index / 10, index % 10]
+        if (!original)
+        {
+            if (GOGameElement[index / 10, index % 10]
             //проверка на то, щелчек это по изображению или по свободной клетке
             && ((index / 10 == EmptySlot[0] && (index % 10 + 1 == EmptySlot[1] || index % 10 - 1 == EmptySlot[1])) || (index % 10 == EmptySlot[1] && (index / 10 + 1 == EmptySlot[0] || index / 10 - 1 == EmptySlot[0]))))
             //првоерка на то, есть ли рядом пустая клетка, куда можно было бы переместить текущую ячейку
+            {
+
+                MoveElement(index);
+                SumMoves += 1;
+                textSumMove.text = "" + SumMoves;
+
+            }
+        }
+        else
         {
-            MoveElement(index);
-            SumMoves += 1;
-            textSumMove.text = "" + SumMoves;
+            OriginalButton();
         }
     }
 
